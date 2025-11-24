@@ -31,7 +31,7 @@ def test_from_list():
 def test_from_scalar_int():
     """Test that scalar integers are properly converted to 1-dimensional arrays"""
     tensor = parse_obj_as(NdArray, 10)
-    
+
     assert isinstance(tensor, NdArray)
     assert isinstance(tensor, np.ndarray)
     # Scalar should be wrapped in 1-dimensional array
@@ -43,7 +43,7 @@ def test_from_scalar_int():
 def test_from_scalar_float():
     """Test that scalar floats are properly converted to 1-dimensional arrays"""
     tensor = parse_obj_as(NdArray, 10.5)
-    
+
     assert isinstance(tensor, NdArray)
     assert isinstance(tensor, np.ndarray)
     # Scalar should be wrapped in 1-dimensional array
@@ -54,20 +54,20 @@ def test_from_scalar_float():
 
 def test_from_scalar_complex():
     """Test that scalar complex numbers are properly converted to 1-dimensional arrays"""
-    tensor = parse_obj_as(NdArray, 3+4j)
-    
+    tensor = parse_obj_as(NdArray, 3 + 4j)
+
     assert isinstance(tensor, NdArray)
     assert isinstance(tensor, np.ndarray)
     # Scalar should be wrapped in 1-dimensional array
     assert tensor.shape == (1,)
-    assert tensor[0] == 3+4j
+    assert tensor[0] == 3 + 4j
     assert np.iscomplexobj(tensor)
 
 
 def test_from_scalar_bool():
     """Test that scalar booleans are properly converted to 1-dimensional arrays"""
     tensor = parse_obj_as(NdArray, True)
-    
+
     assert isinstance(tensor, NdArray)
     assert isinstance(tensor, np.ndarray)
     # Scalar should be wrapped in 1-dimensional array
@@ -78,14 +78,15 @@ def test_from_scalar_bool():
 
 def test_from_scalar_in_document():
     """Test that scalar values work correctly when used in a Document"""
+
     class MyDoc(BaseDoc):
         arr: NdArray
-    
+
     # Test with integer
     doc_int = MyDoc(arr=42)
     assert doc_int.arr.shape == (1,)
     assert doc_int.arr[0] == 42
-    
+
     # Test with float
     doc_float = MyDoc(arr=3.14)
     assert doc_float.arr.shape == (1,)
